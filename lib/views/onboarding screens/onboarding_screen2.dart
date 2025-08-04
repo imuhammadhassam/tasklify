@@ -9,6 +9,7 @@ class OnboardingScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
         child: Column(
@@ -16,7 +17,7 @@ class OnboardingScreen2 extends StatelessWidget {
           children: [
             Column(
               children: [
-                Image.asset("assets/images/onboarding2.png", height: 300),
+                Image.asset("assets/images/onboarding2.jpg", height: 340),
                 const SizedBox(height: 32),
                 const Text(
                   "Do Less, Better",
@@ -35,7 +36,7 @@ class OnboardingScreen2 extends StatelessWidget {
               children: [
                 SkipButton(
                   onTap: () {
-                    Navigator.pushReplacementNamed(context, '/login');
+                    Navigator.pushReplacementNamed(context, '/Signin');
                   },
                 ),
                 NextButton(

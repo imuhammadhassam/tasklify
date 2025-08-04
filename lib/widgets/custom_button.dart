@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
+  final String text; // <- Pass text as a string
 
-  const CustomButton({super.key, required this.onTap});
+  const CustomButton({super.key, required this.onTap, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +19,8 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: const Text(
-          "Get Started",
-          style: TextStyle(fontSize: 16, color: Colors.white),
-        ),
+        child: Text( text, style: const TextStyle(fontSize: 16, color: Colors.white),),
+        
       ),
     );
   }
