@@ -14,12 +14,16 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        hintText: hintText,
-        border: const OutlineInputBorder(),
+    return SizedBox(
+      height: 45,
+      child: TextField(
+        controller: controller,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          hintText: hintText,
+          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+          border: OutlineInputBorder(),
+        ),
       ),
     );
   }

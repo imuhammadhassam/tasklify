@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tasklify/widgets/custom_button.dart';
 import 'package:tasklify/widgets/custom_textfield.dart';
 import 'package:flutter/gestures.dart';
+import 'package:tasklify/widgets/form_label.dart';
 
 class SignUpScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
@@ -46,17 +47,7 @@ class SignUpScreen extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Username",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                FormLabel(label: "Username"),
 
                 const SizedBox(height: 4),
 
@@ -65,19 +56,9 @@ class SignUpScreen extends StatelessWidget {
                   controller: nameController,
                 ),
 
-                const SizedBox(height: 16),
+                const SizedBox(height: 13),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Email",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                FormLabel(label: "Email"),
 
                 const SizedBox(height: 4),
 
@@ -86,19 +67,9 @@ class SignUpScreen extends StatelessWidget {
                   controller: emailController,
                 ),
 
-                const SizedBox(height: 16),
+                const SizedBox(height: 13),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Password ",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                FormLabel(label: "Password"),
 
                 const SizedBox(height: 4),
 
@@ -108,19 +79,9 @@ class SignUpScreen extends StatelessWidget {
                   obscureText: true,
                 ),
 
-                const SizedBox(height: 16),
+                const SizedBox(height: 13),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Confirm Password ",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                FormLabel(label: "Confrim Password"),
 
                 const SizedBox(height: 4),
 
@@ -131,8 +92,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 8),
-
-                const SizedBox(height: 16),
+                const SizedBox(height: 13),
 
                 CustomButton(
                   text: "Sign up",

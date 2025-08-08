@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tasklify/widgets/custom_button.dart';
 import 'package:tasklify/widgets/custom_textfield.dart';
 import 'package:flutter/gestures.dart';
+import 'package:tasklify/widgets/form_label.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -44,17 +45,7 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Email",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                FormLabel(label: "Email"),
 
                 const SizedBox(height: 4),
 
@@ -65,17 +56,7 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Password ",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+                FormLabel(label: "Password"),
 
                 const SizedBox(height: 4),
 
