@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'views/onboarding screens/onboarding_screen1.dart';
-import 'views//login screen/login_screen.dart'; // placeholder
-import 'views/signup_screen/signup_screen.dart'; // placeholder
+import 'views/onboarding/onboarding_screen1.dart';
+import 'views/login/login_screen.dart'; // placeholder
+import 'views/signup/signup_screen.dart'; // placeholder
+import 'views/forgot_password/forgot_password.dart'; // placeholder
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const OnboardingScreen1(),
         '/Signin': (context) => LoginScreen(),
         '/Signup': (context) => SignUpScreen(),
+        '/ForgotPassword': (context) => ForgotPassword(),
       },
     );
   }
