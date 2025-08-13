@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasklify/widgets/custom_button.dart';
 import 'package:tasklify/widgets/custom_textfield.dart';
-import 'package:flutter/gestures.dart';
 import 'package:tasklify/widgets/form_label.dart';
 
 class ForgotPassword extends StatelessWidget {

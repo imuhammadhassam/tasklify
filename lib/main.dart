@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'views/onboarding/onboarding_screen1.dart';
 import 'views/login/login_screen.dart'; // placeholder
 import 'views/signup/signup_screen.dart'; // placeholder
-import 'views/forgot_password/forgot_password.dart'; // placeholder
+import 'views/forgotPassword/forgot_password.dart'; // placeholder
 
 void main() {
   runApp(const MyApp());

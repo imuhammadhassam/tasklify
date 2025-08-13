@@ -3,7 +3,6 @@ import 'package:tasklify/widgets/custom_button.dart';
 import 'package:tasklify/widgets/custom_textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:tasklify/widgets/form_label.dart';
-import 'package:tasklify/views/forgot_password/forgot_password.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -77,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                   },
                   child: const Text(
                     "Forgot password?",
-                    style: TextStyle(color: Colors.black, fontSize: 14,),
+                    style: TextStyle(color: Colors.black, fontSize: 14),
                   ),
                 ),
               ),
