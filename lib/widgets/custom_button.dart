@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/theme/colors.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -14,7 +15,8 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blue,
+          backgroundColor:
+              AppColors.buttonColor, // Use the button color from AppColors
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

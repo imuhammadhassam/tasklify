@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/routes/routes.dart';
+import 'package:tasklify/theme/colors.dart';
+import 'package:tasklify/theme/units.dart';
+import 'package:tasklify/utils/static_assets.dart';
 import '../../widgets/custom_button.dart';
 
 class OnboardingScreen3 extends StatelessWidget {
@@ -7,32 +11,39 @@ class OnboardingScreen3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.scaffoldBackgroundColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+        padding: AppUnits.a24,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               children: [
-                Image.asset("assets/images/onboarding3.jpg", height: 340),
-                const SizedBox(height: 32),
+                StaticAssets.image(StaticAssets.image3),
+
+                AppUnits.y4,
+
                 const Text(
                   "Seamless Routine Sync",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 12),
+
+                AppUnits.y12,
+
                 const Text(
                   "Manage daily routines, see upcoming tasks and synced tasks.",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  style: TextStyle(fontSize: 16, color: AppColors.greyColor),
                 ),
               ],
             ),
+
+            AppUnits.y24,
+
             CustomButton(
               text: "Get Started",
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/Signin');
+                Navigator.pushNamed(context, AppRoutes.signIn);
               },
             ),
           ],

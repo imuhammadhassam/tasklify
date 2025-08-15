@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/routes/routes.dart';
+import 'package:tasklify/theme/colors.dart';
+import 'package:tasklify/theme/typography.dart';
+import 'package:tasklify/theme/units.dart';
+import 'package:tasklify/widgets/b2.dart';
 import 'package:tasklify/widgets/custom_button.dart';
 import 'package:tasklify/widgets/custom_textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:tasklify/widgets/form_label.dart';
+import 'package:tasklify/widgets/h1.dart';
 
 class SignUpScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
@@ -15,61 +21,45 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white, // background
+      color: AppColors.scaffoldBackgroundColor, // background
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: AppUnits.b24,
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Let's Get Started ",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
+              H1("Let's Get Started"),
 
-              const SizedBox(height: 1),
+              AppUnits.y4,
 
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Create an account to get started",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
+              B2("Create an account to get started"),
 
-              const SizedBox(height: 16),
+              AppUnits.y16,
 
               FormLabel(label: "Username"),
 
-              const SizedBox(height: 4),
+              AppUnits.y4,
 
               CustomTextField(
                 hintText: 'Enter your name',
                 controller: nameController,
               ),
 
-              const SizedBox(height: 13),
+              AppUnits.y12,
 
               FormLabel(label: "Email"),
 
-              const SizedBox(height: 4),
+              AppUnits.y4,
 
               CustomTextField(
                 hintText: 'Enter your email',
                 controller: emailController,
               ),
 
-              const SizedBox(height: 13),
+              AppUnits.y12,
 
               FormLabel(label: "Password"),
 
-              const SizedBox(height: 4),
+              AppUnits.y4,
 
               CustomTextField(
                 hintText: 'Enter password',
@@ -77,11 +67,11 @@ class SignUpScreen extends StatelessWidget {
                 obscureText: true,
               ),
 
-              const SizedBox(height: 13),
+              AppUnits.y12,
 
               FormLabel(label: "Confrim Password"),
 
-              const SizedBox(height: 4),
+              AppUnits.y4,
 
               CustomTextField(
                 hintText: 'Enter confirm password',
@@ -89,29 +79,24 @@ class SignUpScreen extends StatelessWidget {
                 obscureText: true,
               ),
 
-              const SizedBox(height: 8),
-              const SizedBox(height: 13),
+              AppUnits.y8,
+              AppUnits.y12,
 
-              CustomButton(
-                text: "Sign up",
-                onTap: () {
-                  // TODO: Implement login functionality
-                },
-              ),
+              CustomButton(text: "Sign up", onTap: () {}),
 
-              const SizedBox(height: 16),
+              AppUnits.y16,
 
               RichText(
                 text: TextSpan(
                   text: "Already have an account? ",
-                  style: TextStyle(color: Colors.black),
+                  style: AppText.b2.copyWith(color: AppColors.textColor),
                   children: [
                     TextSpan(
                       text: "Sign in",
-                      style: TextStyle(color: Colors.blue),
+                      style: AppText.b2.copyWith(color: AppColors.buttonColor),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushNamed(context, '/Signin');
+                          Navigator.pushNamed(context, AppRoutes.signIn);
                         },
                     ),
                   ],
@@ -124,15 +109,3 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-// final TextEditingController nameController = TextEditingController();
-//   final TextEditingController emailController = TextEditingController();
-//   final TextEditingController passwordController = TextEditingController();
-//   final TextEditingController confirmPasswordController =
-//       TextEditingController();
-//   SignUpScreen({super.key});
-
-
-

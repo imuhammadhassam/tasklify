@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/routes/routes.dart';
+import 'package:tasklify/theme/colors.dart';
+import 'package:tasklify/theme/units.dart';
+import 'package:tasklify/widgets/b2.dart';
 import 'package:tasklify/widgets/custom_button.dart';
 import 'package:tasklify/widgets/custom_textfield.dart';
 import 'package:tasklify/widgets/form_label.dart';
+import 'package:tasklify/widgets/h1.dart';
 
 class ForgotPassword extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -12,52 +17,41 @@ class ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white, // background
+      color: AppColors.scaffoldBackgroundColor,
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: AppUnits.b24,
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              AppUnits.y20,
 
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Forgot Password ?",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
+              H1("Forgot Password"),
+
+              AppUnits.y4,
+
+              B2(
+                "Enter your email and a reset link will sent to your email address",
               ),
 
-              const SizedBox(height: 4),
-
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Enter your email and a reset link will sent to your email",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
-
-              const SizedBox(height: 20),
+              AppUnits.y20,
 
               FormLabel(label: "Email"),
 
-              const SizedBox(height: 4),
+              AppUnits.y4,
 
               CustomTextField(
                 hintText: 'Enter your email',
                 controller: emailController,
               ),
 
-              const SizedBox(height: 24),
+              AppUnits.y24,
 
-              CustomButton(text: "Send Code", onTap: () {}),
-
-              const SizedBox(height: 16),
+              CustomButton(
+                text: "Send Code",
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.otpVerification);
+                },
+              ),
             ],
           ),
         ),

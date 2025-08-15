@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/theme/colors.dart';
 
 class SkipButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -11,7 +12,7 @@ class SkipButton extends StatelessWidget {
       onPressed: onTap,
       child: const Text(
         "Skip",
-        style: TextStyle(fontSize: 16, color: Colors.grey),
+        style: TextStyle(fontSize: 16, color: AppColors.greyColor),
       ),
     );
   }

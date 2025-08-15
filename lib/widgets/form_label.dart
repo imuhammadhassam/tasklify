@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/theme/colors.dart';
+import 'package:tasklify/theme/typography.dart';
 
 class FormLabel extends StatelessWidget {
   final String label;
@@ -11,10 +13,9 @@ class FormLabel extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         label,
-        style: const TextStyle(
-          fontSize: 14,
+        style: AppText.b2.copyWith(
+          color: AppColors.textColor,
           fontWeight: FontWeight.bold,
-          color: Colors.black,
         ),
       ),
     );

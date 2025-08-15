@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/routes/routes.dart';
+import 'package:tasklify/theme/colors.dart';
+import 'package:tasklify/theme/typography.dart';
+import 'package:tasklify/theme/units.dart';
+import 'package:tasklify/widgets/b2.dart';
 import 'package:tasklify/widgets/custom_button.dart';
 import 'package:tasklify/widgets/custom_textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:tasklify/widgets/form_label.dart';
+import 'package:tasklify/widgets/h1.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -13,52 +19,36 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white, // background
+      color: AppColors.scaffoldBackgroundColor,
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: AppUnits.b24,
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              AppUnits.y20,
 
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Welcome Back",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
+              H1("Welcome Back"),
 
-              const SizedBox(height: 4),
+              AppUnits.y4,
 
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Log in to continue using the app",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ),
+              B2("Log in to continue using the app"),
 
-              const SizedBox(height: 16),
+              AppUnits.y16,
 
               FormLabel(label: "Email"),
 
-              const SizedBox(height: 4),
+              AppUnits.y4,
 
               CustomTextField(
                 hintText: 'Enter your email',
                 controller: emailController,
               ),
 
-              const SizedBox(height: 16),
+              AppUnits.y16,
 
               FormLabel(label: "Password"),
 
-              const SizedBox(height: 4),
+              AppUnits.y4,
 
               CustomTextField(
                 hintText: 'Enter password',
@@ -66,39 +56,39 @@ class LoginScreen extends StatelessWidget {
                 obscureText: true,
               ),
 
-              const SizedBox(height: 8),
+              AppUnits.y8,
 
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/ForgotPassword');
+                    Navigator.pushNamed(context, AppRoutes.forgotPassword);
                   },
-                  child: const Text(
+                  child: Text(
                     "Forgot password?",
-                    style: TextStyle(color: Colors.black, fontSize: 14),
+                    style: AppText.b2.copyWith(color: AppColors.textColor),
                   ),
                 ),
               ),
 
-              const SizedBox(height: 16),
+              AppUnits.y16,
 
               CustomButton(text: "Sign In", onTap: () {}),
 
-              const SizedBox(height: 16),
+              AppUnits.y16,
 
               RichText(
                 textAlign: TextAlign.right,
                 text: TextSpan(
                   text: "Don't have an account? ",
-                  style: TextStyle(color: Colors.black),
+                  style: AppText.b2.copyWith(color: AppColors.textColor),
                   children: [
                     TextSpan(
                       text: "Sign up",
-                      style: TextStyle(color: Colors.blue),
+                      style: AppText.b2.copyWith(color: AppColors.buttonColor),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushNamed(context, '/Signup');
+                          Navigator.pushNamed(context, AppRoutes.signUp);
                         },
                     ),
                   ],
