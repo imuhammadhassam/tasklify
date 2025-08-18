@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:tasklify/controllers/validators.dart';
-import 'package:tasklify/routes/routes.dart';
-import 'package:tasklify/theme/colors.dart';
-import 'package:tasklify/theme/typography.dart';
-import 'package:tasklify/theme/units.dart';
-import 'package:tasklify/widgets/b2.dart';
-import 'package:tasklify/widgets/custom_button.dart';
-import 'package:tasklify/widgets/custom_textfield.dart';
+import 'package:tasklify/utils/textfield_validators.dart';
+import 'package:tasklify/routes/app_routes.dart';
+import 'package:tasklify/theme/app_colors.dart';
+import 'package:tasklify/theme/app_typography.dart';
+import 'package:tasklify/theme/app_units.dart';
+import 'package:tasklify/widgets/text/b2.dart';
+import 'package:tasklify/widgets/form/custom_button.dart';
+import 'package:tasklify/widgets/form/custom_textfield.dart';
 import 'package:flutter/gestures.dart';
-import 'package:tasklify/widgets/form_label.dart';
-import 'package:tasklify/widgets/h1.dart';
+import 'package:tasklify/widgets/form/form_label.dart';
+import 'package:tasklify/widgets/text/h1.dart';
 
 class LoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();

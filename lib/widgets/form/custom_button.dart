@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tasklify/theme/colors.dart';
+import 'package:tasklify/theme/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
-  final String text; // <- Pass text as a string
+  final String text;
 
   const CustomButton({super.key, required this.onTap, required this.text});
 

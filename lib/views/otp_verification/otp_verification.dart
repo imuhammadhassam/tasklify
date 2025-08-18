@@ -1,13 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'package:tasklify/routes/routes.dart';
-import 'package:tasklify/theme/colors.dart';
-import 'package:tasklify/theme/typography.dart';
-import 'package:tasklify/theme/units.dart';
-import 'package:tasklify/widgets/b2.dart';
-import 'package:tasklify/widgets/custom_button.dart';
-import 'package:tasklify/widgets/h1.dart';
+import 'package:tasklify/routes/app_routes.dart';
+import 'package:tasklify/theme/app_colors.dart';
+import 'package:tasklify/theme/app_typography.dart';
+import 'package:tasklify/theme/app_units.dart';
+import 'package:tasklify/widgets/text/b2.dart';
+
+import 'package:tasklify/widgets/form/custom_button.dart';
+import 'package:tasklify/widgets/text/h1.dart';
 
 class OtpVerification extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasklify/theme/typography.dart';
-import 'package:tasklify/theme/colors.dart';
+import 'package:tasklify/theme/app_typography.dart';
+import 'package:tasklify/theme/app_colors.dart';
 
 class B2 extends StatelessWidget {
   final String text;

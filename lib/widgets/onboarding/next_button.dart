@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tasklify/theme/colors.dart';
+import 'package:tasklify/theme/app_colors.dart';
 
 class NextButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -13,9 +13,11 @@ class NextButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
         padding: const EdgeInsets.all(12),
-        backgroundColor: AppColors.buttonColor, // customize as needed
+        backgroundColor: AppColors.buttonColor, 
       ),
       child: const Icon(Icons.arrow_forward, color: Colors.white),
     );
   }
 }
+
+

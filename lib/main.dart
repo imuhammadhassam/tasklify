@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'routes/routes.dart';
-
-import 'views/onboarding/onboarding_screen1.dart';
+import 'package:tasklify/views/onboarding/onboarding_screen.dart';
+import 'routes/app_routes.dart';
 import 'views/login/login_screen.dart';
 import 'views/signup/signup_screen.dart';
-import 'views/forgotPassword/forgot_password.dart';
-import 'views/otpVerification/otp_verification.dart';
+import 'views/forgot_password/forgot_password.dart';
+import 'views/otp_verification/otp_verification.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.onboarding,
       routes: {
-        AppRoutes.onboarding: (context) => const OnboardingScreen1(),
+        AppRoutes.onboarding: (context) => const OnboardingScreen(),
         AppRoutes.signIn: (context) => LoginScreen(),
         AppRoutes.signUp: (context) => SignUpScreen(),
         AppRoutes.forgotPassword: (context) => ForgotPassword(),
