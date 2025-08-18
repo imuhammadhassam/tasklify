@@ -18,7 +18,7 @@ class OtpVerification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.scaffoldBackgroundColor, // background
+      color: AppColors.scaffoldBackgroundColor,
       child: SafeArea(
         child: SingleChildScrollView(
           padding: AppUnits.b24,
@@ -40,6 +40,7 @@ class OtpVerification extends StatelessWidget {
                 // onChanged: (value) {
                 //   print(value);
                 // },
+
                 // onCompleted: (pin) {
                 //   print('OTP Entered: $pin');
                 // },
@@ -73,7 +74,10 @@ class OtpVerification extends StatelessWidget {
                       style: AppText.b2.copyWith(color: AppColors.buttonColor),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushNamed(context, AppRoutes.signIn);
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.forgotPassword,
+                          );
                         },
                     ),
                   ],

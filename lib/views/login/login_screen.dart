@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/controllers/validators.dart';
 import 'package:tasklify/routes/routes.dart';
 import 'package:tasklify/theme/colors.dart';
 import 'package:tasklify/theme/typography.dart';
@@ -11,10 +12,23 @@ import 'package:tasklify/widgets/form_label.dart';
 import 'package:tasklify/widgets/h1.dart';
 
 class LoginScreen extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   LoginScreen({super.key});
+
+  void _submitLogin(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      //  check if form is valid
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Login Successful ")));
+
+      // WE CAN add here firebase login and navigation here
+      // Navigator.pushNamed(context, AppRoutes.home);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,78 +37,90 @@ class LoginScreen extends StatelessWidget {
       child: SafeArea(
         child: SingleChildScrollView(
           padding: AppUnits.b24,
-          child: Column(
-            children: [
-              AppUnits.y20,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                AppUnits.y20,
 
-              H1("Welcome Back"),
+                H1("Welcome Back"),
 
-              AppUnits.y4,
+                AppUnits.y4,
 
-              B2("Log in to continue using the app"),
+                B2("Log in to continue using the app"),
 
-              AppUnits.y16,
+                AppUnits.y16,
 
-              FormLabel(label: "Email"),
+                FormLabel(label: "Email"),
 
-              AppUnits.y4,
+                AppUnits.y4,
 
-              CustomTextField(
-                hintText: 'Enter your email',
-                controller: emailController,
-              ),
+                CustomTextField(
+                  controller: emailController,
+                  hintText: "Email",
+                  icon: Icons.email,
+                  validator: Validators.emailValidator,
+                ),
 
-              AppUnits.y16,
+                AppUnits.y16,
 
-              FormLabel(label: "Password"),
+                FormLabel(label: "Password"),
 
-              AppUnits.y4,
+                AppUnits.y4,
 
-              CustomTextField(
-                hintText: 'Enter password',
-                controller: passwordController,
-                obscureText: true,
-              ),
+                CustomTextField(
+                  controller: passwordController,
+                  hintText: "Password",
+                  isPassword: true,
+                  icon: Icons.lock,
+                  validator: Validators.passwordValidator,
+                ),
 
-              AppUnits.y8,
+                AppUnits.y8,
 
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.forgotPassword);
-                  },
-                  child: Text(
-                    "Forgot password?",
-                    style: AppText.b2.copyWith(color: AppColors.textColor),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.forgotPassword);
+                    },
+                    child: Text(
+                      "Forgot password?",
+                      style: AppText.b2.copyWith(color: AppColors.textColor),
+                    ),
                   ),
                 ),
-              ),
 
-              AppUnits.y16,
+                AppUnits.y16,
 
-              CustomButton(text: "Sign In", onTap: () {}),
-
-              AppUnits.y16,
-
-              RichText(
-                textAlign: TextAlign.right,
-                text: TextSpan(
-                  text: "Don't have an account? ",
-                  style: AppText.b2.copyWith(color: AppColors.textColor),
-                  children: [
-                    TextSpan(
-                      text: "Sign up",
-                      style: AppText.b2.copyWith(color: AppColors.buttonColor),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.pushNamed(context, AppRoutes.signUp);
-                        },
-                    ),
-                  ],
+                CustomButton(
+                  text: "Sign In",
+                  onTap: () => _submitLogin(context),
                 ),
-              ),
-            ],
+
+                AppUnits.y16,
+
+                RichText(
+                  textAlign: TextAlign.right,
+                  text: TextSpan(
+                    text: "Don't have an account? ",
+                    style: AppText.b2.copyWith(color: AppColors.textColor),
+                    children: [
+                      TextSpan(
+                        text: "Sign up",
+                        style: AppText.b2.copyWith(
+                          color: AppColors.buttonColor,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushNamed(context, AppRoutes.signUp);
+                          },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
