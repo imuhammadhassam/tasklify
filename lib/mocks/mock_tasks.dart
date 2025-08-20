@@ -23,7 +23,6 @@ List<Task> mockTasks = [
     createdAt: DateTime.now().add(Duration(days: 14)),
     isCompleted: true,
   ),
-
   Task(
     id: 4,
     title: 'Workout',
@@ -31,7 +30,6 @@ List<Task> mockTasks = [
     createdAt: DateTime.now().add(Duration(days: 1)),
     isCompleted: false,
   ),
-
   Task(
     id: 5,
     title: 'Plan vacation',

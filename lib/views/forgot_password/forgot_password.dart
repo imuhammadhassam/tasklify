@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tasklify/utils/textfield_validators.dart';
 import 'package:tasklify/routes/app_routes.dart';
-import 'package:tasklify/theme/app_colors.dart';
 import 'package:tasklify/theme/app_units.dart';
-import 'package:tasklify/widgets/text/b2.dart';
+import 'package:tasklify/utils/textfield_validators.dart';
+import 'package:tasklify/theme/app_colors.dart';
 import 'package:tasklify/widgets/form/custom_button.dart';
 import 'package:tasklify/widgets/form/custom_textfield.dart';
 import 'package:tasklify/widgets/form/form_label.dart';
+import 'package:tasklify/widgets/text/b2.dart';
 import 'package:tasklify/widgets/text/h1.dart';
 
 class ForgotPassword extends StatelessWidget {
@@ -17,14 +17,14 @@ class ForgotPassword extends StatelessWidget {
   ForgotPassword({super.key});
   void _sendCode(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      //  check if email is valid
+      // ✅ email valid hai
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Reset code sent to ${emailController.text} 📩"),
         ),
       );
 
-      // we can add firebase reset password logic here
+      // Yahan tum Firebase reset password logic add kar sakte ho
     }
   }
 

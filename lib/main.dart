@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/views/home/home_screen.dart';
 import 'package:tasklify/views/onboarding/onboarding_screen.dart';
 import 'routes/app_routes.dart';
 import 'views/login/login_screen.dart';
@@ -24,6 +25,8 @@ class MyApp extends StatelessWidget {
         AppRoutes.signUp: (context) => SignUpScreen(),
         AppRoutes.forgotPassword: (context) => ForgotPassword(),
         AppRoutes.otpVerification: (context) => OtpVerification(),
+        AppRoutes.home: (context) =>
+            HomeScreen(), // Replace with your home screen widget
       },
     );
   }

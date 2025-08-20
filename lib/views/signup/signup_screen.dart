@@ -1,45 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:tasklify/utils/textfield_validators.dart';
 import 'package:tasklify/routes/app_routes.dart';
-import 'package:tasklify/theme/app_colors.dart';
 import 'package:tasklify/theme/app_typography.dart';
 import 'package:tasklify/theme/app_units.dart';
-import 'package:tasklify/widgets/text/b2.dart';
+import 'package:tasklify/utils/textfield_validators.dart';
+import 'package:tasklify/theme/app_colors.dart';
 import 'package:tasklify/widgets/form/custom_button.dart';
 import 'package:tasklify/widgets/form/custom_textfield.dart';
-import 'package:flutter/gestures.dart';
 import 'package:tasklify/widgets/form/form_label.dart';
+import 'package:tasklify/widgets/text/b2.dart';
+import 'package:flutter/gestures.dart';
 import 'package:tasklify/widgets/text/h1.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  SignUpScreen({super.key});
-
   void _submitForm(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      //we can save the data in firebase from here
       final name = nameController.text.trim();
       final email = emailController.text.trim();
       final password = passwordController.text.trim();
 
-      print("Valid Form Data:");
-      print("Name: $name");
-      print("Email: $email");
-      print("Password: $password");
+      debugPrint("✅ Signup Validation Passed");
+      debugPrint("Name: $name");
+      debugPrint("Email: $email");
+      debugPrint("Password: $password");
 
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("Signup Successful")));
+      ).showSnackBar(const SnackBar(content: Text("Signup Successful ✅")));
 
-      // Navigator.pushNamed(context, AppRoutes.signIn);
+      // ✅ Clear fields
+      nameController.clear();
+      emailController.clear();
+      passwordController.clear();
+      confirmPasswordController.clear();
+
+      // ✅ Navigate to Login
+      Navigator.pushReplacementNamed(context, AppRoutes.signIn);
+    } else {
+      debugPrint(" Signup Validation Failed");
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Please fix the errors")));
     }
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,7 +78,7 @@ class SignUpScreen extends StatelessWidget {
         child: SingleChildScrollView(
           padding: AppUnits.b24,
           child: Form(
-            key: _formKey,
+            key: _formKey, // ✅ Form key assign kiya
             child: Column(
               children: [
                 H1("Let's Get Started"),
@@ -121,8 +149,7 @@ class SignUpScreen extends StatelessWidget {
                 CustomButton(
                   text: "Sign up",
                   onTap: () {
-                    _submitForm(context);
-                    //Navigator.pushNamed(context, AppRoutes.signIn);
+                    _submitForm(context); // ✅ Button click par validate karega
                   },
                 ),
 
