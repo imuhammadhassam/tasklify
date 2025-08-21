@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/widgets/home/live_date/live_date.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -19,10 +20,8 @@ class HomeHeader extends StatelessWidget {
           ),
         ),
         SizedBox(height: 4),
-        Text(
-          "Saturday, May 25th",
-          style: TextStyle(color: Colors.white70, fontSize: 14),
-        ),
+
+        LiveDateWidget(),
       ],
     );
   }
