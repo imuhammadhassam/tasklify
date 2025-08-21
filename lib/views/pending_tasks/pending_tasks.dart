@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:tasklify/models/task.dart';
 import 'package:tasklify/theme/app_colors.dart';
@@ -26,30 +27,21 @@ class _PendingTasksScreenState extends State<PendingTasksScreen> {
       pendingTasks.remove(task); // ✅ remove from pending
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          '"${task.title}" marked as completed ✅',
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: AppColors.buttonColor,
-        behavior: SnackBarBehavior.floating, // floating style
-        margin: const EdgeInsets.all(12), // gap from edges
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12), // rounded corners
-        ),
-        duration: const Duration(seconds: 2), // auto hide time
-        elevation: 6, // shadow effect
+    // 🎉 Fancy Snackbar with awesome_snackbar_content
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: 'Completed ✅',
+        message: '"${task.title}" marked as completed!',
+        contentType: ContentType.success,
       ),
     );
 
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(content: Text('"${task.title}" marked as completed ✅')),
-    // );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 
   @override

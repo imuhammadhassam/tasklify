@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:tasklify/controllers/task/task_functions.dart';
 import 'package:tasklify/mocks/mock_tasks.dart';
@@ -27,6 +28,29 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Task> tasks = mockTasks;
+
+  // 🔥 Reusable fancy snackbar
+  void showCustomSnackBar({
+    required String title,
+    required String message,
+    required ContentType type,
+  }) {
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: title,
+        message: message,
+        contentType: type,
+      ),
+    );
+
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -85,21 +109,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       child: Row(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.center, // ✅ vertical center
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.work_outline,
                             color: AppColors.buttonColor,
-                            size: 30, // optional, adjust size
+                            size: 30,
                           ),
                           AppUnits.x12,
                           Expanded(child: TaskInfoWidget(task: task)),
 
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment
-                                .center, // ✅ align vertically center
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               // 🔹 Row: Mark as Completed + Delete
                               Row(
@@ -121,13 +143,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 task,
                                               );
                                             });
+                                            showCustomSnackBar(
+                                              title: "Task Completed",
+                                              message:
+                                                  '"${task.title}" marked as completed ✅',
+                                              type: ContentType.success,
+                                            );
                                           },
                                   ),
                                   AppUnits.x8,
                                   DeleteTaskButton(
                                     tasks: tasks,
                                     task: task,
-                                    onTaskDeleted: () => setState(() {}),
+                                    onTaskDeleted: () {
+                                      setState(() {});
+                                      showCustomSnackBar(
+                                        title: "Task Deleted",
+                                        message:
+                                            '"${task.title}" deleted successfully 🗑️',
+                                        type: ContentType.failure,
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
@@ -154,6 +190,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 task,
                                               );
                                             });
+                                            showCustomSnackBar(
+                                              title: "Task Pending",
+                                              message:
+                                                  '"${task.title}" moved back to pending ⏳',
+                                              type: ContentType.warning,
+                                            );
                                           },
                                   ),
                                   AppUnits.x8,
@@ -171,33 +213,36 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        //  -------------------------------------------------------------------------             FAB
+        // ------------------------------------------------------------------------- FAB
         floatingActionButton: CustomFAB(
           tasks: tasks,
           onTaskAdded: (updatedTasks) {
             setState(() {
               tasks = updatedTasks;
             });
+            showCustomSnackBar(
+              title: "Task Added",
+              message: '"${updatedTasks.last.title}" created successfully 🎉',
+              type: ContentType.success,
+            );
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        //  -------------------------------------------------------------------------            DRAWER
+        // ------------------------------------------------------------------------- DRAWER
         drawer: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(40), // ✅ Rounded border
-          ),
+          borderRadius: const BorderRadius.only(topRight: Radius.circular(40)),
           child: Drawer(
             backgroundColor: AppColors.scaffoldBackgroundColor,
             child: Column(
               children: [
-                // --------------------------------------------------------------------      DRAWER TOP PROFILE CARD
+                // DRAWER TOP PROFILE CARD
                 Container(
                   padding: AppPadding2.screenPadding,
                   color: AppColors.buttonColor,
                   child: Row(children: [ProfileHeader()]),
                 ),
                 AppUnits.y20,
-                // -------------------------------------------------------------------- DRAWER SECOND CONTAINER WITH 2 BUTTONS
+                // DRAWER SECOND CONTAINER WITH 2 BUTTONS
                 Container(
                   color: Colors.white,
                   padding: const EdgeInsets.all(16),

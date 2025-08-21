@@ -11,7 +11,7 @@ class B2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: Text(text, style: AppText.b1.copyWith(color: AppColors.greyColor)),
+      child: Text(text, style: AppText.b1.copyWith(color: AppColors.textColor)),
     );
   }
 }

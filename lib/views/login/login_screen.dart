@@ -10,6 +10,7 @@ import 'package:tasklify/widgets/form/form_label.dart';
 import 'package:tasklify/widgets/text/b2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:tasklify/widgets/text/h1.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,9 +25,26 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
+
   void _submitLogin(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       debugPrint("✅ Validation Passed, navigating...");
+
+      // ✅ Show Success Snackbar
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Success 🎉',
+          message: 'You have logged in successfully!',
+          contentType: ContentType.success,
+        ),
+      );
+
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
 
       // Navigate
       Navigator.pushReplacementNamed(context, AppRoutes.home);
@@ -36,8 +54,39 @@ class _LoginScreenState extends State<LoginScreen> {
       passwordController.clear();
     } else {
       debugPrint("❌ Validation Failed");
+
+      // ❌ Show Failure Snackbar
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Oh Snap!',
+          message: 'Please check your email & password again.',
+          contentType: ContentType.failure,
+        ),
+      );
+
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
     }
   }
+
+  // void _submitLogin(BuildContext context) {
+  //   if (_formKey.currentState!.validate()) {
+  //     debugPrint("✅ Validation Passed, navigating...");
+
+  //     // Navigate
+  //     Navigator.pushReplacementNamed(context, AppRoutes.home);
+
+  //     // ✅ Clear controllers
+  //     emailController.clear();
+  //     passwordController.clear();
+  //   } else {
+  //     debugPrint("❌ Validation Failed");
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -49,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.scaffoldBackgroundColor,
+      color: Colors.grey.shade100,
       child: SafeArea(
         child: SingleChildScrollView(
           padding: AppUnits.b24,
