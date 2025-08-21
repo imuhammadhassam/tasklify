@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 class StatusButton extends StatelessWidget {
   final String text;
   final Color backgroundColor;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed; // ✅ nullable banado
   final EdgeInsetsGeometry padding;
 
   const StatusButton({
     super.key,
     required this.text,
     required this.backgroundColor,
-    required this.onPressed,
+    this.onPressed, // ✅ required hata do
     this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+    required Color textColor,
   });
 
   @override

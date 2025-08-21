@@ -12,4 +12,6 @@ class Task {
     required this.createdAt,
     this.isCompleted = false,
   });
+
+  get dateTime => null;
 }

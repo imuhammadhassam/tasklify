@@ -3,7 +3,9 @@ import 'package:tasklify/models/task.dart';
 import 'package:tasklify/theme/app_colors.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  const AddTaskScreen({super.key});
+  final Task? task; // 🔹 optional task (for edit mode)
+
+  const AddTaskScreen({super.key, this.task});
 
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
@@ -20,11 +22,22 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   void initState() {
     super.initState();
+
     final now = DateTime.now();
     _currentDate =
         "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
     _createdAtTime =
         "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
+
+    // Agar edit mode hai to fields prefill ho jayengi
+    if (widget.task != null) {
+      _titleController.text = widget.task!.title;
+      _descriptionController.text = widget.task!.description;
+      _currentDate =
+          "${widget.task!.createdAt.day.toString().padLeft(2, '0')}-${widget.task!.createdAt.month.toString().padLeft(2, '0')}-${widget.task!.createdAt.year}";
+      _createdAtTime =
+          "${widget.task!.createdAt.hour.toString().padLeft(2, '0')}:${widget.task!.createdAt.minute.toString().padLeft(2, '0')}:${widget.task!.createdAt.second.toString().padLeft(2, '0')}";
+    }
   }
 
   Widget _buildInputCard({
@@ -42,7 +55,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.grey,
             blurRadius: 5,
             offset: const Offset(0, 3),
           ),
@@ -58,7 +71,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
-          ), // grey label
+          ),
           TextFormField(
             controller: controller,
             maxLines: maxLines,
@@ -83,7 +96,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.grey,
             blurRadius: 5,
             offset: const Offset(0, 3),
           ),
@@ -104,7 +117,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
-                ), // grey label
+                ),
                 const SizedBox(height: 4),
                 Text(
                   value,
@@ -120,6 +133,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isEditMode = widget.task != null;
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor1,
       body: SafeArea(
@@ -141,7 +156,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
+                              color: Colors.grey,
                               blurRadius: 6,
                               offset: const Offset(0, 3),
                             ),
@@ -155,16 +170,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       ),
                     ),
                     const Spacer(),
-                    const Text(
-                      "Add Task",
-                      style: TextStyle(
+                    Text(
+                      isEditMode ? "Edit Task" : "Add Task",
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
                     const Spacer(),
-                    const SizedBox(width: 40), // balance spacing
+                    const SizedBox(width: 40),
                   ],
                 ),
 
@@ -193,14 +208,17 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        final newTask = Task(
-                          id: DateTime.now().millisecondsSinceEpoch,
+                        final task = Task(
+                          id:
+                              widget.task?.id ??
+                              DateTime.now().millisecondsSinceEpoch,
                           title: _titleController.text,
                           description: _descriptionController.text,
-                          createdAt: DateTime.now(), // ✅ Save actual time
-                          isCompleted: false,
+                          createdAt: widget.task?.createdAt ?? DateTime.now(),
+                          isCompleted: widget.task?.isCompleted ?? false,
                         );
-                        Navigator.pop(context, newTask);
+
+                        Navigator.pop(context, task);
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -210,9 +228,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text(
-                      "Add Task",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    child: Text(
+                      isEditMode ? "Update Task" : "Add Task",
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
                 ),

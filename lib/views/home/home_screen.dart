@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:tasklify/controllers/task/task_functions.dart';
 import 'package:tasklify/mocks/mock_tasks.dart';
 import 'package:tasklify/models/task.dart';
 import 'package:tasklify/theme/app_colors.dart';
-import 'package:tasklify/views/add_task/add_task_screen.dart';
+import 'package:tasklify/theme/app_units.dart';
+import 'package:tasklify/views/completed_tasks/completed_tasks.dart';
+import 'package:tasklify/views/pending_tasks/pending_tasks.dart';
+import 'package:tasklify/widgets/drawer/profile_header.dart';
+import 'package:tasklify/widgets/drawer/task_cards.dart';
+import 'package:tasklify/widgets/home/delete_task_button/delete_task.dart';
+import 'package:tasklify/widgets/home/drawer_icon/drawer_icon_button.dart';
+import 'package:tasklify/widgets/home/edit_task_button/task_edit.dart';
+import 'package:tasklify/widgets/home/floating_action_button/floating_button.dart';
+import 'package:tasklify/widgets/home/home_header/home_header.dart';
+import 'package:tasklify/widgets/home/home_paddings/home_padding1.dart';
+import 'package:tasklify/widgets/home/home_paddings/home_padding2.dart';
+import 'package:tasklify/widgets/home/status_button/status_button.dart';
+import 'package:tasklify/widgets/home/task_info/task_info.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,32 +27,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Task> tasks = mockTasks;
-  bool showCompleted = false;
-
-  void addTask(Task task) {
-    setState(() {
-      tasks.add(task);
-    });
-  }
-
-  void deleteTask(Task task) {
-    setState(() {
-      tasks.remove(task);
-    });
-  }
-
-  void toggleComplete(Task task) {
-    setState(() {
-      task.isCompleted = !task.isCompleted;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    List<Task> filteredTasks = tasks
-        .where((t) => t.isCompleted == showCompleted)
-        .toList();
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.scaffoldBackgroundColor,
@@ -46,57 +36,21 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             // Top Header
             Container(
-              padding: const EdgeInsets.only(
-                top: 50,
-                left: 20,
-                right: 20,
-                bottom: 20,
-              ),
+              padding: AppPadding1.screenPadding,
               decoration: BoxDecoration(color: AppColors.buttonColor),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //Icon(Icons.grid_view, color: Colors.white, size: 30),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.grid_view,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      Scaffold.of(
-                        context,
-                      ).openEndDrawer(); // ✅ Drawer open karega
-                    },
-                  ),
-                  const SizedBox(width: 10),
+                  const DrawerIconButton(),
+                  AppUnits.x12,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Hello!",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      Text(
-                        "Ahmed Ehab",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "Saturday, May 25th",
-                        style: TextStyle(color: Colors.white70, fontSize: 14),
-                      ),
-                    ],
+                    children: const [HomeHeader()],
                   ),
                   const Spacer(),
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 22,
-                    backgroundImage: AssetImage(
-                      "assets/profile.jpg",
-                    ), // add an image
+                    backgroundImage: AssetImage("assets/profile.jpg"),
                   ),
                 ],
               ),
@@ -107,16 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 decoration: const BoxDecoration(
                   color: AppColors.scaffoldBackgroundColor1,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
                 ),
                 child: ListView.builder(
                   padding: const EdgeInsets.all(16),
-                  itemCount: filteredTasks.length,
+                  itemCount: tasks.length,
                   itemBuilder: (context, index) {
-                    final task = filteredTasks[index];
+                    final task = tasks[index];
                     return Container(
                       margin: const EdgeInsets.only(bottom: 12),
                       padding: const EdgeInsets.symmetric(
@@ -128,64 +78,89 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
+                            color: Colors.grey,
                             blurRadius: 5,
-                            offset: Offset(0, 3),
+                            offset: const Offset(0, 3),
                           ),
                         ],
                       ),
                       child: Row(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.center, // ✅ vertical center
                         children: [
                           Icon(
                             Icons.work_outline,
                             color: AppColors.buttonColor,
+                            size: 30, // optional, adjust size
                           ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  task.title,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                          AppUnits.x12,
+                          Expanded(child: TaskInfoWidget(task: task)),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment
+                                .center, // ✅ align vertically center
+                            children: [
+                              // 🔹 Row: Mark as Completed + Delete
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  StatusButton(
+                                    text: task.isCompleted
+                                        ? "Completed"
+                                        : "Mark as Completed",
+                                    backgroundColor: task.isCompleted
+                                        ? const Color.fromARGB(255, 202, 83, 75)
+                                        : AppColors.buttonColor,
+                                    textColor: Colors.white,
+                                    onPressed: task.isCompleted
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              TaskFunctions.toggleComplete(
+                                                task,
+                                              );
+                                            });
+                                          },
                                   ),
-                                ),
-                                Text(
-                                  "${task.createdAt.hour}:${task.createdAt.minute.toString().padLeft(2, '0')}",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
+                                  AppUnits.x8,
+                                  DeleteTaskButton(
+                                    tasks: tasks,
+                                    task: task,
+                                    onTaskDeleted: () => setState(() {}),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () => toggleComplete(task),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 14,
-                                vertical: 6,
+                                ],
                               ),
-                              decoration: BoxDecoration(
-                                color: AppColors.buttonColor,
-                                borderRadius: BorderRadius.circular(8),
+
+                              AppUnits.y8,
+
+                              // 🔹 Row: Mark as Pending + Edit
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  StatusButton(
+                                    text: !task.isCompleted
+                                        ? "Pending"
+                                        : "Mark as Pending",
+                                    backgroundColor: !task.isCompleted
+                                        ? Colors.grey
+                                        : Colors.orange,
+                                    textColor: Colors.white,
+                                    onPressed: !task.isCompleted
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              TaskFunctions.toggleComplete(
+                                                task,
+                                              );
+                                            });
+                                          },
+                                  ),
+                                  AppUnits.x8,
+                                  TaskEditButton(task: task, tasks: tasks),
+                                ],
                               ),
-                              child: Text(
-                                task.isCompleted ? "Done" : "Pending",
-                                style: TextStyle(
-                                  color: AppColors.whiteColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => deleteTask(task),
+                            ],
                           ),
                         ],
                       ),
@@ -196,52 +171,70 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: FloatingActionButton(
-            onPressed: () async {
-              final newTask = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => AddTaskScreen()),
-              );
-              if (newTask != null) {
-                addTask(newTask);
-              }
-            },
-            backgroundColor: AppColors.buttonColor,
-            foregroundColor: Colors.white,
-            child: const Icon(Icons.add),
-          ),
+        //  -------------------------------------------------------------------------             FAB
+        floatingActionButton: CustomFAB(
+          tasks: tasks,
+          onTaskAdded: (updatedTasks) {
+            setState(() {
+              tasks = updatedTasks;
+            });
+          },
         ),
-
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-        endDrawer: Drawer(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(16),
-                color: AppColors.buttonColor,
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 30,
-                      backgroundImage: AssetImage("assets/profile.jpg"),
-                    ),
-                    const SizedBox(width: 16),
-                    const Text(
-                      "Ahmed Ehab",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+        //  -------------------------------------------------------------------------            DRAWER
+        drawer: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(40), // ✅ Rounded border
+          ),
+          child: Drawer(
+            backgroundColor: AppColors.scaffoldBackgroundColor,
+            child: Column(
+              children: [
+                // --------------------------------------------------------------------      DRAWER TOP PROFILE CARD
+                Container(
+                  padding: AppPadding2.screenPadding,
+                  color: AppColors.buttonColor,
+                  child: Row(children: [ProfileHeader()]),
                 ),
-              ),
-            ],
+                AppUnits.y20,
+                // -------------------------------------------------------------------- DRAWER SECOND CONTAINER WITH 2 BUTTONS
+                Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      TaskCard(
+                        icon: Icons.pending_actions,
+                        title: "Pending Tasks",
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PendingTasksScreen(tasks: tasks),
+                            ),
+                          );
+                        },
+                      ),
+                      AppUnits.y12,
+                      TaskCard(
+                        icon: Icons.check_circle,
+                        title: "Completed Tasks",
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CompletedTasksScreen(tasks: tasks),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
